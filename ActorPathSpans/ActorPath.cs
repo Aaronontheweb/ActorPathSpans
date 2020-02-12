@@ -30,7 +30,6 @@ namespace Akka.Actor
     /// </summary>
     public abstract class ActorPath : IEquatable<ActorPath>, IComparable<ActorPath>
     {
-        
         /// <summary>
         /// INTERNAL API
         /// </summary>
@@ -49,7 +48,7 @@ namespace Akka.Actor
             {
                 return false;
             }
-            return !s.StartsWith("$") && Validate(s.ToCharArray(), s.Length);
+            return !s.StartsWith("$") && Validate(s.AsSpan(), s.Length);
         }
 
         private static bool IsValidChar(char c) => (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
@@ -58,7 +57,7 @@ namespace Akka.Actor
         private static bool IsHexChar(char c) => (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F') ||
                                                  (c >= '0' && c <= '9');
 
-        private static bool Validate(IReadOnlyList<char> chars, int len)
+        private static bool Validate(ReadOnlySpan<char> chars, int len)
         {
             var pos = 0;
             while (pos < len)
