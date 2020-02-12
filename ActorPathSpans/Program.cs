@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reflection;
+using BenchmarkDotNet.Running;
 
 namespace ActorPathSpans
 {
@@ -6,7 +8,7 @@ namespace ActorPathSpans
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            BenchmarkSwitcher.FromAssembly(Assembly.GetExecutingAssembly()).Run(args);
         }
     }
 }
